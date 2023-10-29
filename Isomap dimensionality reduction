@@ -1,0 +1,29 @@
+from sklearn.manifold import Isomap
+from sklearn import datasets
+import matplotlib.pyplot as plt
+from matplotlib.ticker import NullFormatter
+
+
+n_points = 2000
+X, color = datasets.make_swiss_roll(n_points, 
+random_state=0)
+
+fig = plt.figure(figsize=(45, 25))
+ax = fig.add_subplot(251, projection='3d')
+ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=color, cmap=plt.
+cm.jet, s=9, lw=1)
+ax.view_init(10, -72)
+
+isomap = Isomap (n_components=2, n_neighbors = 10)
+X_isomap = isomap.fit_transform(X)
+
+fig = plt.figure(figsize=(5, 5))
+ax = fig.add_subplot(1,1,1)
+ax.scatter(X_isomap[:, 0], X_isomap[:, 1], c=color, cmap=plt.
+cm.jet, s=9, lw=1)
+ax.xaxis.set_major_formatter(NullFormatter())
+ax.yaxis.set_major_formatter(NullFormatter())
+ax.axis('tight')
+plt.ylabel('Y coordinate')
+plt.xlabel('X coordinate')
+plt.show()
